@@ -3,9 +3,16 @@
   themes: light --default;
 }
 
-@theme inline {
+@plugin "daisyui/theme" {
+  name: light;
+  default: true;
+  --color-primary: #26003b;
+  --color-secondary: #b71056;
+}
+
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+} */
