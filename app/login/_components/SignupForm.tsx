@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegUser } from "react-icons/fa";
 import {
@@ -6,6 +6,7 @@ import {
   MdOutlineEmail,
   MdOutlinePhoneEnabled,
 } from "react-icons/md";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 type FormInputs = {
   name: string;
@@ -16,6 +17,8 @@ type FormInputs = {
 };
 
 const SignupForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword_2, setShowPassword_2] = useState(false);
   const {
     register,
     handleSubmit,
@@ -54,24 +57,38 @@ const SignupForm = () => {
           placeholder="Email address"
         />
       </label>
-      <label className="input input-md outline-0 focus:border-2 border-[0_0_2_0] focus:border-primary rounded-none">
+      <label className="input input-md outline-0 focus:border-2 border-[0_0_2_0] focus:border-primary rounded-none relative">
         <MdLockOutline className="opacity-50" />
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           {...register("password")}
           className="grow"
           placeholder="Password"
         />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </button>
       </label>
 
-      <label className="input input-md outline-0 focus:border-2 border-[0_0_2_0] focus:border-primary rounded-none">
+      <label className="input input-md outline-0 focus:border-2 border-[0_0_2_0] focus:border-primary rounded-none relative">
         <MdLockOutline className="opacity-50" />
         <input
-          type="password"
+          type={showPassword_2 ? "text" : "password"}
           {...register("confirmPassword")}
           className="grow"
           placeholder="Confirm Password"
         />
+        <button
+          type="button"
+          onClick={() => setShowPassword_2(!showPassword_2)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 z-100"
+        >
+          {showPassword_2 ? <FaEyeSlash /> : <FaEye />}
+        </button>
       </label>
 
       <button
