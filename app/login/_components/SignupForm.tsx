@@ -51,8 +51,8 @@ const SignupForm = () => {
         <MdOutlineEmail className="opacity-50" />
 
         <input
-          type="text"
-          {...register("name")}
+          type="email"
+          {...register("email")}
           className=" grow"
           placeholder="Email address"
         />
