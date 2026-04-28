@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "bcrypt": "^6.0.0",
     "daisyui": "^5.5.19",
     "dotenv": "^17.4.2",
     "mongodb": "^7.2.0",

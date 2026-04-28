@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { FaRegUser } from "react-icons/fa";
 import {
   MdLockOutline,
@@ -17,6 +17,23 @@ type FormInputs = {
   confirmPassword: string;
 };
 
+interface newUserData {
+  status: number;
+  message: string;
+}
+
+const postFormData = async (formData: FormInputs): Promise<newUserData> => {
+  const response = await fetch("http://localhost:3000/api/register", {
+    method: "POST",
+    headers: { "conten-type": "application/json" },
+    body: JSON.stringify({
+      ...formData,
+    }),
+  });
+  const data = await response.json();
+  return data;
+};
+
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword_2, setShowPassword_2] = useState(false);
@@ -24,14 +41,40 @@ const SignupForm = () => {
     register,
     handleSubmit,
     reset,
-    watch,
+    control,
     formState: { errors },
   } = useForm<FormInputs>();
+  const password = useWatch({ control, name: "password" });
+  const onSubmit = async (data: FormInputs) => {
+    try {
+      toast.promise(postFormData(data), {
+        loading: "Creating account...",
+        success: (res: newUserData) => {
+          if (res.status === 200 || res.status === 201) {
+            reset();
+            return `Success: ${res.message}`;
+          } else {
+            throw new Error(res.message);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          return err.message || "Could not register!";
+        },
+      });
+      // const { message, status } = await postFormData(data);
+      // if (status === 200 || status === 201) {
+      //   toast.success(`Successfull message: ${message}`);
+      // } else {
+      //   toast.error(`Failed message: ${message}`);
+      // }
+    } catch (err) {
+      console.error(err);
+    }
 
-  const onSubmit = (data: FormInputs) => {
-    toast.success("Successfull");
     return data;
   };
+
   return (
     <form
       className="h-auto w-full text-center space-y-4 inline-block [&_label]:w-full"
@@ -91,7 +134,10 @@ const SignupForm = () => {
         <MdLockOutline className="opacity-50" />
         <input
           type={showPassword_2 ? "text" : "password"}
-          {...register("confirmPassword")}
+          {...register("confirmPassword", {
+            required: "This field is required",
+            validate: (value) => value === password || "Passwords do not match",
+          })}
           className="grow"
           placeholder="Confirm Password"
         />
@@ -103,7 +149,9 @@ const SignupForm = () => {
           {showPassword_2 ? <FaEyeSlash /> : <FaEye />}
         </button>
       </label>
-
+      {errors.confirmPassword && (
+        <p className="text-red-500 text-xs">{errors.confirmPassword.message}</p>
+      )}
       <button
         type="submit"
         className="w-full btn border-0 btn-lg rounded-3xl bg-linear-to-br from-primary to-secondary text-white uppercase text-sm mt-4"

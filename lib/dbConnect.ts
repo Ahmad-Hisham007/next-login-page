@@ -53,6 +53,7 @@ export const dbConnect = async (): Promise<Mongoose> => {
   if (!cached.promise) {
     const opt = {
       bufferCommands: false,
+      dbName: "next-login",
     };
     cached.promise = mongoose.connect(mongoDBUri, opt).then((m) => {
       return m;
