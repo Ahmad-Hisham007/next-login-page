@@ -7,6 +7,7 @@ import {
   MdOutlinePhoneEnabled,
 } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 type FormInputs = {
   name: string;
@@ -23,10 +24,19 @@ const SignupForm = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<FormInputs>();
+
+  const onSubmit = (data: FormInputs) => {
+    toast.success("Successfull");
+    return data;
+  };
   return (
-    <form className="h-auto w-full text-center space-y-4 inline-block [&_label]:w-full">
+    <form
+      className="h-auto w-full text-center space-y-4 inline-block [&_label]:w-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <label className="input input-md outline-0 focus:border-2 border-[0_0_2_0] focus:border-primary rounded-none">
         <FaRegUser className="opacity-50" />
 
@@ -52,7 +62,10 @@ const SignupForm = () => {
 
         <input
           type="email"
-          {...register("email")}
+          {...register("email", {
+            required: "Email is required",
+            pattern: { value: /^\S+@\S+$/i, message: "Invalid email" },
+          })}
           className=" grow"
           placeholder="Email address"
         />
