@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import "../globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 import DashboardLayoutUi from "./_components/DashboardLayoutUi";
+import SessionWrapper from "@/Components/SessionWrapper/SessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,9 @@ export default function DashboardLayout({
         suppressHydrationWarning
       >
         <ToasterProvider />
-        <DashboardLayoutUi>{children}</DashboardLayoutUi>
+        <DashboardLayoutUi>
+          <SessionWrapper>{children}</SessionWrapper>
+        </DashboardLayoutUi>
       </body>
     </html>
   );

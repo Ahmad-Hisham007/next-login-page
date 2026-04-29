@@ -17,11 +17,13 @@ export const POST = async (req: Request) => {
       });
     }
     const hashedPassword = bcrypt.hashSync(password, salt);
+    const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&color=fff`;
     const newUser = {
       name,
       email,
       password: hashedPassword,
       phoneNumber,
+      image: avatarUrl,
     };
     const createdUser = await User.create(newUser);
     return NextResponse.json({

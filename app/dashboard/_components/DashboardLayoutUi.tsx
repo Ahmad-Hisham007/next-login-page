@@ -9,6 +9,7 @@ import NavLink from "../../../Components/NavLink/NavLink";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { GrLayer } from "react-icons/gr";
 import { PiGearBold } from "react-icons/pi";
+import UserProfile from "./UserProfile";
 
 const DashboardLayoutUi = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -17,7 +18,7 @@ const DashboardLayoutUi = ({ children }: { children: React.ReactNode }) => {
       <DashboardSidebarToggle></DashboardSidebarToggle>
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full bg-slate-700 border border-slate-500 md:flex grid grid-cols-[50px_auto_50px]">
+        <nav className="navbar w-full bg-slate-700 border border-slate-500 md:flex justify-end grid grid-cols-[50px_auto_50px]">
           <label
             htmlFor="drawer-dashboard"
             aria-label="open sidebar"
@@ -36,9 +37,10 @@ const DashboardLayoutUi = ({ children }: { children: React.ReactNode }) => {
             ></Image>
             <span className="leading-none font-semibold">Dashboard</span>
           </div>
+          <UserProfile></UserProfile>
         </nav>
         {/* Page content here */}
-        <div className="p-4">{children}</div>
+        <div className="p-4 bg-slate-900 min-h-screen p-10">{children}</div>
       </div>
 
       <div className="drawer-side is-drawer-close:overflow-visible border-slate-500 bg-slate-700">

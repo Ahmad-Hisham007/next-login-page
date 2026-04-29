@@ -19,7 +19,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (!credentials?.email || !credentials?.password) return null;
         await dbConnect();
         const user = await User.findOne({ email: credentials?.email });
-        console.log(user);
         if (!user) {
           throw new Error("No user found with this email");
         }
@@ -35,6 +34,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           email: user.email,
           name: user.name,
           phoneNumber: user.phoneNumber,
+          image: user.image,
         };
       },
     }),
