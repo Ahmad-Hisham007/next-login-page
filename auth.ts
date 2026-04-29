@@ -4,14 +4,17 @@ import { dbConnect } from "./lib/dbConnect";
 import User from "./models/User";
 import bcrypt from "bcryptjs";
 import authConfig from "./auth.config";
+import Google from "next-auth/providers/google";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     CredentialsProvider({
       ...authConfig,
       credentials: {
-        // name: { label: "name", type: "text" },
-        // phoneNumber: { label: "PhoneNumber", type: "text" },
         email: { label: "email", type: "email" },
         password: { label: "password", type: "password" },
       },

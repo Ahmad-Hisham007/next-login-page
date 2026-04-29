@@ -4,6 +4,7 @@ import LoginForm from "./LoginForm";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import SignupForm from "./SignupForm";
+import { signIn } from "next-auth/react";
 
 const Container = () => {
   const [isLoginCol, setIsLoginCol] = useState<boolean>(true);
@@ -36,7 +37,9 @@ const Container = () => {
       formRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [isLoginCol]);
-
+  const handleSocialLogin = (provider: string) => {
+    signIn(provider, { callbackUrl: "/dashboard" });
+  };
   return (
     // Parent Container: Desktop e full width pabe (max-6xl)
     <div
@@ -82,7 +85,10 @@ const Container = () => {
             <button className="rounded-full w-10 h-10 flex justify-center items-center bg-linear-to-br from-gray-500 to-gray-900 text-white hover:scale-110 transition-all">
               <FaGithub />
             </button>
-            <button className="rounded-full w-10 h-10 flex justify-center items-center bg-[linear-gradient(140deg,yellow_25%,red_35%,green_50%,blue_70%)] text-white hover:scale-110 transition-all">
+            <button
+              className="rounded-full w-10 h-10 flex justify-center items-center bg-[linear-gradient(140deg,yellow_25%,red_35%,green_50%,blue_70%)] text-white hover:scale-110 transition-all"
+              onClick={() => handleSocialLogin("google")}
+            >
               <FaGoogle />
             </button>
           </div>

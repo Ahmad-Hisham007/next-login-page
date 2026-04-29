@@ -11,6 +11,13 @@ type LoginFormInputs = {
   password: string;
 };
 const LoginForm = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginFormInputs>();
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const onSubmit = async (data: LoginFormInputs) => {
     try {
@@ -26,6 +33,7 @@ const LoginForm = () => {
             if (res?.error) {
               throw new Error(res.error);
             }
+            reset();
             router.push("/dashboard");
             router.refresh();
             return "Login Successful!";
@@ -39,13 +47,7 @@ const LoginForm = () => {
       console.error(err);
     }
   };
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<LoginFormInputs>();
-  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <form
       className="h-auto w-full text-center space-y-4 inline-block [&_label]:w-full"
