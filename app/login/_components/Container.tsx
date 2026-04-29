@@ -82,7 +82,10 @@ const Container = () => {
             <button className="rounded-full w-10 h-10 flex justify-center items-center bg-linear-to-br from-blue-700 to-slate-800 text-white hover:scale-110 transition-all">
               <FaFacebookF />
             </button>
-            <button className="rounded-full w-10 h-10 flex justify-center items-center bg-linear-to-br from-gray-500 to-gray-900 text-white hover:scale-110 transition-all">
+            <button
+              className="rounded-full w-10 h-10 flex justify-center items-center bg-linear-to-br from-gray-500 to-gray-900 text-white hover:scale-110 transition-all"
+              onClick={() => handleSocialLogin("github")}
+            >
               <FaGithub />
             </button>
             <button

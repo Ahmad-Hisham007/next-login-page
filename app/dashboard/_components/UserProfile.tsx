@@ -1,6 +1,6 @@
 "use client";
 import NavLink from "@/Components/NavLink/NavLink";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 
@@ -37,7 +37,12 @@ const UserProfile = () => {
             <NavLink href="/dashboard/profile">Profile</NavLink>
           </li>
           <li>
-            <a>Item 2</a>
+            <button
+              onClick={() => signOut({ callbackUrl: "/login" })}
+              className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-100"
+            >
+              Sign Out
+            </button>
           </li>
         </ul>
       </div>
