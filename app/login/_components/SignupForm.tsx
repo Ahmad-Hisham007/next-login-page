@@ -71,50 +71,6 @@ const SignupForm = () => {
 
     return data;
   };
-  // const handleLoginAfterSignup = async (data: FormInputs) => {
-  //   try {
-  //     toast.promise(
-  //       signIn(
-  //         "credentials",
-  //         {
-  //           email: data.email,
-  //           password: data.password,
-  //           redirect: false,
-  //         }
-  //     ),{
-  //         loading: "Logging in",
-  //           success: (res) => {
-  //             console.log(res);
-  //             return "Logged in. Redirecting..."
-  //           },
-  //           error: (err) => {
-  //             console.log(err);
-  //             return "Login failed"
-  //           },
-  //         },
-  //       ),
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  //   // const result = await signIn("credentials", {
-  //   //   email: data.email,
-  //   //   password: data.password,
-  //   //   redirect: false,
-  //   // });
-  //   // console.log(result);
-  //   // if (result?.error) {
-  //   //   toast.error(
-  //   //     "Account created, but auto-login failed. Please login manually.",
-  //   //   );
-  //   //   router.push("/login");
-  //   // } else {
-  //   //   reset();
-  //   //   setTimeout(() => {
-  //   //     router.push("/dashboard");
-  //   //     router.refresh();
-  //   //   }, 1500);
-  //   // }
-  // };
 
   const handleLoginAfterSignup = async (data: FormInputs) => {
     try {
@@ -128,6 +84,7 @@ const SignupForm = () => {
           loading: "Logging in",
           success: (res) => {
             console.log(res);
+            reset();
             router.push("/dashboard");
             router.refresh();
             return "Logged in. Redirecting...";
@@ -186,7 +143,9 @@ const SignupForm = () => {
         <MdLockOutline className="opacity-50" />
         <input
           type={showPassword ? "text" : "password"}
-          {...register("password")}
+          {...register("password", {
+            required: "Password is required",
+          })}
           className="grow"
           placeholder="Password"
         />

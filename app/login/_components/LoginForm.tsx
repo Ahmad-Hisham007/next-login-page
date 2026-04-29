@@ -1,17 +1,56 @@
 "use client";
-import React from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
-
+type LoginFormInputs = {
+  email: string;
+  password: string;
+};
 const LoginForm = () => {
+  const router = useRouter();
+  const onSubmit = async (data: LoginFormInputs) => {
+    try {
+      toast.promise(
+        signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        }),
+        {
+          loading: "Logging in ",
+          success: (res: any) => {
+            if (res?.error) {
+              throw new Error(res.error);
+            }
+            router.push("/dashboard");
+            router.refresh();
+            return "Login Successful!";
+          },
+          error: (err: any) => {
+            return err.message || "Invalid Credentials!";
+          },
+        },
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<LoginFormInputs>();
+  const [showPassword, setShowPassword] = useState(false);
   return (
-    <form className="h-auto w-full text-center space-y-4 inline-block [&_label]:w-full">
+    <form
+      className="h-auto w-full text-center space-y-4 inline-block [&_label]:w-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <label className="input input-md outline-0 focus:border-2 border-[0_0_2_0] focus:border-primary rounded-none">
         <MdOutlineEmail className="opacity-50" />
 
@@ -25,11 +64,20 @@ const LoginForm = () => {
       <label className="input input-md outline-0 focus:border-2 border-[0_0_2_0] focus:border-primary rounded-none">
         <MdLockOutline className="opacity-50" />
         <input
-          type="password"
-          {...register("password")}
+          type={showPassword ? "text" : "password"}
+          {...register("password", {
+            required: "Password is required",
+          })}
           className="grow"
           placeholder="Password"
         />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </button>
       </label>
       <div className="flex justify-between mb-4">
         <label className="label text-sm">
