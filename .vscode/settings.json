@@ -1,3 +1,8 @@
 {
-  "conventionalCommits.scopes": ["Authentication", "database", "toast"]
+  "conventionalCommits.scopes": [
+    "Authentication",
+    "database",
+    "toast",
+    "dashboard"
+  ]
 }

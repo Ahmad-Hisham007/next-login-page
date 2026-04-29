@@ -1,10 +1,14 @@
 import { auth } from "@/auth";
-import { Session } from "next-auth";
-import { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-export default auth((req: NextRequest & { auth: Session }) => {
+export default auth((req) => {
   const isLoggedIn = !!req.auth;
-  console.log("ইজার কি লগইন?", isLoggedIn);
+  const isDashboard = req.nextUrl.pathname.startsWith("/dashboard");
+  if (isDashboard && !isLoggedIn) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+  console.log("Proxy works");
+  return NextResponse.next();
 });
 
 export const config = {

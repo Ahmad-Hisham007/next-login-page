@@ -1,7 +1,9 @@
 import { dbConnect } from "@/lib/dbConnect";
 import User from "@/models/User";
+import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
+
+const salt = bcrypt.genSaltSync(10);
 
 export const POST = async (req: Request) => {
   try {
@@ -14,11 +16,11 @@ export const POST = async (req: Request) => {
         message: "The user is already existing",
       });
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
     const newUser = {
       name,
       email,
-      hashedPassword,
+      password: hashedPassword,
       phoneNumber,
     };
     const createdUser = await User.create(newUser);

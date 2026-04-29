@@ -8,6 +8,8 @@ import {
 } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type FormInputs = {
   name: string;
@@ -37,6 +39,7 @@ const postFormData = async (formData: FormInputs): Promise<newUserData> => {
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword_2, setShowPassword_2] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -51,7 +54,7 @@ const SignupForm = () => {
         loading: "Creating account...",
         success: (res: newUserData) => {
           if (res.status === 200 || res.status === 201) {
-            reset();
+            handleLoginAfterSignup(data);
             return `Success: ${res.message}`;
           } else {
             throw new Error(res.message);
@@ -62,17 +65,83 @@ const SignupForm = () => {
           return err.message || "Could not register!";
         },
       });
-      // const { message, status } = await postFormData(data);
-      // if (status === 200 || status === 201) {
-      //   toast.success(`Successfull message: ${message}`);
-      // } else {
-      //   toast.error(`Failed message: ${message}`);
-      // }
     } catch (err) {
       console.error(err);
     }
 
     return data;
+  };
+  // const handleLoginAfterSignup = async (data: FormInputs) => {
+  //   try {
+  //     toast.promise(
+  //       signIn(
+  //         "credentials",
+  //         {
+  //           email: data.email,
+  //           password: data.password,
+  //           redirect: false,
+  //         }
+  //     ),{
+  //         loading: "Logging in",
+  //           success: (res) => {
+  //             console.log(res);
+  //             return "Logged in. Redirecting..."
+  //           },
+  //           error: (err) => {
+  //             console.log(err);
+  //             return "Login failed"
+  //           },
+  //         },
+  //       ),
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   // const result = await signIn("credentials", {
+  //   //   email: data.email,
+  //   //   password: data.password,
+  //   //   redirect: false,
+  //   // });
+  //   // console.log(result);
+  //   // if (result?.error) {
+  //   //   toast.error(
+  //   //     "Account created, but auto-login failed. Please login manually.",
+  //   //   );
+  //   //   router.push("/login");
+  //   // } else {
+  //   //   reset();
+  //   //   setTimeout(() => {
+  //   //     router.push("/dashboard");
+  //   //     router.refresh();
+  //   //   }, 1500);
+  //   // }
+  // };
+
+  const handleLoginAfterSignup = async (data: FormInputs) => {
+    try {
+      toast.promise(
+        signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        }),
+        {
+          loading: "Logging in",
+          success: (res) => {
+            console.log(res);
+            router.push("/dashboard");
+            router.refresh();
+            return "Logged in. Redirecting...";
+          },
+          error: (err) => {
+            console.log(err);
+            router.push("/login");
+            return "Login failed";
+          },
+        },
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
