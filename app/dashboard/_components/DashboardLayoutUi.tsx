@@ -5,6 +5,10 @@ import {
   TbLayoutSidebarRightExpand,
 } from "react-icons/tb";
 import DashboardSidebarToggle from "./DashboardSidebarToggle";
+import NavLink from "../../../Components/NavLink/NavLink";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { GrLayer } from "react-icons/gr";
+import { PiGearBold } from "react-icons/pi";
 
 const DashboardLayoutUi = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -20,9 +24,9 @@ const DashboardLayoutUi = ({ children }: { children: React.ReactNode }) => {
             className="btn btn-square btn-ghost md:hidden flex items-center"
           >
             {/* Sidebar toggle icon */}
-            <TbLayoutSidebarRightCollapse className="my-1.5 inline-block size-4 text-2xl w-6 h-6" />
+            <TbLayoutSidebarRightCollapse className="my-1.5 text-slate-500 inline-block size-4 text-2xl w-6 h-6" />
           </label>
-          <div className="px-4 flex items-end gap-3">
+          <div className="px-4 flex items-end gap-3 md:hidden">
             <Image
               src="/next.svg"
               width="120"
@@ -60,62 +64,44 @@ const DashboardLayoutUi = ({ children }: { children: React.ReactNode }) => {
               <span className="is-drawer-close:hidden">Dashboard</span>
             </button>
           </div>
-          <ul className="menu w-full grow">
+          <ul className="menu px-0 w-full grow [&_li]:rounded-0 [&_li]:border-b [&_li]:border-slate-500 text-slate-400 font-medium [&_a.active]:bg-black/20">
             {/* List item */}
             <li>
-              <button
+              <NavLink
+                href="/dashboard"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
-                {/* Home icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
-                >
-                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
-                <span className="is-drawer-close:hidden">Homepage</span>
-              </button>
+                <MdOutlineSpaceDashboard className="my-1.5 inline-block size-4" />
+                <span className="is-drawer-close:hidden">Dashboard</span>
+              </NavLink>
             </li>
-
-            {/* List item */}
             <li>
-              <button
+              <NavLink
+                href="/dashboard/posts"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Posts"
+              >
+                <GrLayer className="my-1.5 inline-block size-4" />
+                <span className="is-drawer-close:hidden">Posts</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                href="/dashboard/settings"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Settings"
               >
-                {/* Settings icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
-                >
-                  <path d="M20 7h-9"></path>
-                  <path d="M14 17H5"></path>
-                  <circle cx="17" cy="17" r="3"></circle>
-                  <circle cx="7" cy="7" r="3"></circle>
-                </svg>
+                <PiGearBold className="my-1.5 inline-block size-4" />
                 <span className="is-drawer-close:hidden">Settings</span>
-              </button>
+              </NavLink>
             </li>
           </ul>
           <div className="flex justify-start items-center w-full p-2">
             <label
               htmlFor="drawer-dashboard"
               aria-label="open sidebar"
-              className="btn btn-square grow box-border flex is-drawer-open:flex-row-reverse justify-between items-center border-0 p-3 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              className="btn btn-square bg-slate-500 grow box-border flex is-drawer-open:flex-row-reverse justify-between items-center border-0 p-3 is-drawer-close:tooltip is-drawer-close:tooltip-right"
               data-tip="Open sidebar"
             >
               {/* Sidebar toggle icon */}
