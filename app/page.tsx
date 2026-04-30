@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-center gap-12 py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-slate-300">
+      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-center gap-12 py-32 px-16 bg-white dark:bg-slate-900 sm:items-start">
         <Image
           className="dark:invert"
           src="/next.svg"
@@ -60,6 +60,9 @@ export default function Home() {
           >
             Github
           </a>
+        </div>
+        <div className="text-white/60 text-center text-2xl font-semibold">
+          Built With ❤
         </div>
       </main>
     </div>

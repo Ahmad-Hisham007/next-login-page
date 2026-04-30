@@ -41,7 +41,6 @@ const Container = () => {
     signIn(provider, { callbackUrl: "/dashboard" });
   };
   return (
-    // Parent Container: Desktop e full width pabe (max-6xl)
     <div
       className={`max-w-6xl mx-auto grow flex flex-col lg:flex-row items-stretch rounded-lg shadow-lg shadow-slate-950 h-auto md:overflow-hidden overflow-visible lg:min-h-150 relative ${isLoginCol ? "" : "!lg:mt-0"}`}
       style={
@@ -79,7 +78,10 @@ const Container = () => {
           <LoginForm />
           <div className="divider my-7 text-sm font-bold uppercase">OR</div>
           <div className="flex gap-2 [&_button]:cursor-pointer">
-            <button className="rounded-full w-10 h-10 flex justify-center items-center bg-linear-to-br from-sky-800 to-slate-800 text-white hover:scale-110 transition-all" onClick={() => handleSocialLogin("linkedin")}>
+            <button
+              className="rounded-full w-10 h-10 flex justify-center items-center bg-linear-to-br from-sky-800 to-slate-800 text-white hover:scale-110 transition-all"
+              onClick={() => handleSocialLogin("linkedin")}
+            >
               <FaLinkedinIn />
             </button>
             <button
