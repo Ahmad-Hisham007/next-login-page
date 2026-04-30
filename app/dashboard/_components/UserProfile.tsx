@@ -7,7 +7,6 @@ import React from "react";
 const UserProfile = () => {
   const { data: session } = useSession();
   const imageSrc = session?.user?.image;
-  console.log(session?.user);
   if (!imageSrc) return null;
 
   return (

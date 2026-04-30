@@ -1,4 +1,3 @@
-import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
@@ -34,11 +33,6 @@ export default {
           email: profile.email,
           image: profile.picture,
         };
-      },
-    }),
-    CredentialsProvider({
-      async authorize(credentials) {
-        return null;
       },
     }),
   ],

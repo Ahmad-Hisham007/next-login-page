@@ -7,7 +7,7 @@ const UsersSchema = new mongoose.Schema({
   emailVerified: { type: Date, default: null },
   image: { type: String },
   // Extra fields
-  password: { type: String },
+  password: { type: String, select: false },
   role: { type: String, default: "user" },
 });
 const User = mongoose.models.User || mongoose.model("User", UsersSchema);

@@ -3,6 +3,7 @@
     "Authentication",
     "database",
     "toast",
-    "dashboard"
+    "dashboard",
+    "deployment"
   ]
 }

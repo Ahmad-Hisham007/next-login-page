@@ -27,7 +27,7 @@ interface newUserData {
 const postFormData = async (formData: FormInputs): Promise<newUserData> => {
   const response = await fetch("http://localhost:3000/api/register", {
     method: "POST",
-    headers: { "conten-type": "application/json" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       ...formData,
     }),
@@ -83,7 +83,6 @@ const SignupForm = () => {
         {
           loading: "Logging in",
           success: (res) => {
-            console.log(res);
             reset();
             router.push("/dashboard");
             router.refresh();
