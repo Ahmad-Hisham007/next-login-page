@@ -28,7 +28,7 @@ const UserProfile = () => {
         </button>
 
         <ul
-          className="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
+          className="dropdown menu w-52 rounded-box bg-base-100 shadow-sm space-y-2"
           popover="auto"
           id="popover-1"
           style={{ positionAnchor: "--anchor-1" } as React.CSSProperties}

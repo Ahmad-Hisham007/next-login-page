@@ -1,5 +1,5 @@
 "use client";
-import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
+import { FaFacebookF, FaGithub, FaGoogle, FaLinkedinIn } from "react-icons/fa";
 import LoginForm from "./LoginForm";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
@@ -78,9 +78,9 @@ const Container = () => {
           <div className="h-0.5 bg-linear-to-br from-primary to-secondary mb-5 w-18" />
           <LoginForm />
           <div className="divider my-7 text-sm font-bold uppercase">OR</div>
-          <div className="flex gap-2">
-            <button className="rounded-full w-10 h-10 flex justify-center items-center bg-linear-to-br from-blue-700 to-slate-800 text-white hover:scale-110 transition-all">
-              <FaFacebookF />
+          <div className="flex gap-2 [&_button]:cursor-pointer">
+            <button className="rounded-full w-10 h-10 flex justify-center items-center bg-linear-to-br from-sky-800 to-slate-800 text-white hover:scale-110 transition-all" onClick={() => handleSocialLogin("linkedin")}>
+              <FaLinkedinIn />
             </button>
             <button
               className="rounded-full w-10 h-10 flex justify-center items-center bg-linear-to-br from-gray-500 to-gray-900 text-white hover:scale-110 transition-all"

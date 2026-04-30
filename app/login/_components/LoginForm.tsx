@@ -11,12 +11,7 @@ type LoginFormInputs = {
   password: string;
 };
 const LoginForm = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<LoginFormInputs>();
+  const { register, handleSubmit, reset } = useForm<LoginFormInputs>();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const onSubmit = async (data: LoginFormInputs) => {
