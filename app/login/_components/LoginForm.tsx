@@ -9,6 +9,7 @@ import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
 type LoginFormInputs = {
   email: string;
   password: string;
+  rememberMeCheckBox: boolean;
 };
 const LoginForm = () => {
   const { register, handleSubmit, reset } = useForm<LoginFormInputs>();
@@ -24,7 +25,7 @@ const LoginForm = () => {
         }),
         {
           loading: "Logging in ",
-          success: (res: any) => {
+          success: (res) => {
             if (res?.error) {
               throw new Error(res.error);
             }
@@ -33,7 +34,7 @@ const LoginForm = () => {
             router.refresh();
             return "Login Successful!";
           },
-          error: (err: any) => {
+          error: (err) => {
             return err.message || "Invalid Credentials!";
           },
         },
